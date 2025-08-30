@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Fortune
 
-# Register your models here.
+admin.site.register(Fortune)
+
+class FortuneAdmin(admin.ModelAdmin):
+    list_display = ["id"]
+
