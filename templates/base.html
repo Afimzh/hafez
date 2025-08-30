@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}پروژه حافظ{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>📜 پروژه حافظ</h1>
+        <nav>
+            <a href="/users/">کاربران</a>
+            <a href="/poems/">اشعار</a>
+            <a href="/fortune/">فال</a>
+            <a href="/favorites/">علاقه‌مندی‌ها</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2025 - پروژه حافظ</p>
+    </footer>
+</body>
+</html>

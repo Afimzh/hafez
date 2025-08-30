@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}کاربران{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>ثبت کاربر جدید</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">ثبت</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}فال حافظ{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>🔮 فال حافظ</h2>
+    {% if fortunes %}
+        <ul>
+        {% for f in fortunes %}
+            <li>
+                <p><strong>{{ f.fortune_user.user_name }}</strong>:</p>
+                <blockquote>{{ f.fortune_poem }}</blockquote>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>هیچ فالی ثبت نشده است.</p>
+    {% endif %}
+</div>
+{% endblock %}

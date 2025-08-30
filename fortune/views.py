@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse , JsonResponse
+from .models import Fortune
 
 def fortune(request):
-    return HttpResponse("Fortune Page")
-
-
-# Create your views here.
+    fortunes = Fortune.objects.all()
+    return render(request, "fortunes/fortune.html", {"fortunes": fortunes})
