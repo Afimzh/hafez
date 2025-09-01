@@ -1,313 +1,770 @@
-/* --- فونت فارسی و تنظیمات پایه --- */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;700&display=swap');
 
+
+```css
+/* ====== Hafez Project – style.css (RTL, Persian-friendly) ====== */
+/* Root tokens */
 :root {
-    --primary-color: #3c2a5e;
-    --secondary-color: #c9a961;
-    --accent-color: #8b4513;
-    --text-color: #2c2416;
-    --light-bg: #f9f5eb;
-    --paper-texture: url('https://www.transparenttextures.com/patterns/old-map.png');
-    --shadow: rgba(60, 42, 94, 0.15);
+  /* Font Stack - Persian fonts prioritized */
+  --font-sans: "Vazirmatn", "Iranian Sans", "BYekan", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-serif: "Noto Naskh Arabic", "Iranian Serif", "Ghalam", serif;
+  
+  /* Colors from user's palette */
+  --primary: #662249;      /* Deep purple */
+  --primary-light: #E9BCB9; /* Light pink */
+  --secondary: #ED9E59;    /* Orange */
+  --dark: #1B1931;         /* Dark blue */
+  
+  /* Derived colors */
+  --primary-dark: #4a1835;
+  --primary-50: #fdf4f5;
+  --secondary-light: #f7c9a0;
+  --dark-light: #2d2a46;
+  
+  /* Layout variables */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+  --shadow-lg: 0 15px 35px rgba(102, 34, 73, 0.15);
+  --shadow-paper: 0 1px 1px rgba(0,0,0,0.07), 
+                  0 2px 2px rgba(0,0,0,0.07), 
+                  0 4px 4px rgba(0,0,0,0.07), 
+                  0 8px 8px rgba(0,0,0,0.07);
+  --speed: 160ms;
+  
+  /* Base theme */
+  --bg: #fefefe;
+  --bg-soft: #f9f6f4;
+  --bg-elev: #ffffff;
+  --text: #101114;
+  --text-muted: #5b5f69;
+  --border: #e6e8ee;
+  --accent: var(--primary);
+  --accent-600: var(--primary-dark);
+  --accent-50: var(--primary-50);
+  --success: #17a673;
+  --success-50: #e8f7f1;
+  --warning: var(--secondary);
+  --warning-50: #fff7e0;
+  --danger: #e03131;
+  --danger-50: #fdecec;
+  --info: #0ea5e9;
+  --info-50: #eaf7fe;
+  --focus: 2px dotted var(--accent);
+  
+  /* Paper texture */
+  --paper-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23662249' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1B1931;
+    --bg-soft: #211f3a;
+    --bg-elev: #262440;
+    --text: #f0f3f9;
+    --text-muted: #b8bcc9;
+    --border: #3a3855;
+    --accent-50: #3d2e4a;
+    --success-50: #0f1f1a;
+    --warning-50: #4a3523;
+    --danger-50: #2a1414;
+    --info-50: #0b1e28;
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.35);
+    --shadow-md: 0 18px 48px rgba(0,0,0,0.35);
+    --shadow-paper: 0 1px 1px rgba(0,0,0,0.2), 
+                    0 2px 2px rgba(0,0,0,0.2), 
+                    0 4px 4px rgba(0,0,0,0.2), 
+                    0 8px 8px rgba(0,0,0,0.2);
+  }
+}
+
+/* Global reset & base */
+* { box-sizing: border-box; }
+html { 
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  direction: rtl;
+}
 body {
-    font-family: 'Noto Naskh Arabic', 'Vazirmatn', serif;
-    margin: 0;
-    padding: 0;
-    background: var(--light-bg);
-    background-image: var(--paper-texture);
-    background-blend-mode: multiply;
-    background-size: cover;
-    background-attachment: fixed;
-    color: var(--text-color);
-    direction: rtl;
-    text-align: right;
-    line-height: 2;
-    position: relative;
+  background-image: var(--paper-texture);
+  background-color: var(--bg);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(249,245,235,0.92) 0%, rgba(244,241,232,0.88) 100%);
-    z-index: -1;
+img, svg, video { 
+  max-width: 100%; 
+  height: auto; 
+  display: block; 
+  border-radius: var(--radius-sm);
+}
+a { 
+  color: var(--accent); 
+  text-decoration: none; 
+  transition: color var(--speed) ease;
+}
+a:hover { 
+  color: var(--accent-600); 
+}
+p { 
+  margin: 0 0 1rem; 
+  text-align: justify;
+}
+h1, h2, h3 { 
+  margin: 0 0 .75rem; 
+  line-height: 1.4;
+  font-family: var(--font-serif);
+}
+h1 { 
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); 
+  color: var(--primary);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--secondary);
+  border-radius: 2px;
+}
+h2 { 
+  font-size: clamp(1.25rem, 1.1rem + .8vw, 1.75rem); 
+  color: var(--primary-dark);
+}
+h3 { 
+  font-size: clamp(1.1rem, 1rem + .6vw, 1.35rem); 
+  color: var(--dark);
 }
 
-/* --- هدر --- */
-header {
-    background: linear-gradient(90deg, var(--primary-color), #7647c2);
-    color: #fff;
-    padding: 30px 20px;
-    text-align: center;
-    box-shadow: 0 4px 20px var(--shadow);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 3px solid var(--secondary-color);
-    background-image: var(--paper-texture);
-    background-blend-mode: overlay;
-    background-opacity: 0.1;
+/* Skip to content */
+.skip-to-content {
+  position: absolute;
+  inset-inline-start: .75rem;
+  inset-block-start: .75rem;
+  background: var(--accent);
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: 10px;
+  transform: translateY(-140%);
+  transition: transform var(--speed) ease;
+  z-index: 1000;
+}
+.skip-to-content:focus { 
+  transform: translateY(0); 
+  outline: none; 
 }
 
-header h1 {
-    margin: 0;
-    font-size: 34px;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    position: relative;
-    display: inline-block;
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(255,255,255,.8);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+@media (prefers-color-scheme: dark) {
+  .site-header { 
+    background: rgba(27,25,49,.8); 
+  }
+}
+.site-header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+.site-header__title {
+  font-weight: 800;
+  letter-spacing: -.015em;
+  font-family: var(--font-serif);
+  color: var(--primary);
+  font-size: 1.5rem;
 }
 
-header h1::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    right: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--secondary-color);
+/* Nav */
+.nav {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.nav__link {
+  display: inline-block;
+  padding: .6rem 1rem;
+  border-radius: 999px;
+  color: var(--text);
+  background: transparent;
+  transition: all var(--speed) ease;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+.nav__link:hover {
+  background: var(--accent-50);
+  color: var(--accent-600);
+  transform: translateY(-1px);
+}
+.nav__link[aria-current="page"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
 }
 
-/* --- منو --- */
-nav {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Main/container */
+.main { 
+  padding: 2rem 1rem 3rem; 
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
 }
 
-nav a {
-    color: #553f12;
-    text-decoration: none;
-    margin: 0 18px;
-    font-weight: 500;
-    font-size: 18px;
-    position: relative;
-    transition: color 0.3s ease;
-    padding: 5px 0;
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft);
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+}
+.site-footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+}
+.site-footer__nav {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+.site-footer__link {
+  color: inherit;
+  padding: .25rem .5rem;
+  border-radius: 8px;
+  transition: all var(--speed) ease;
+}
+.site-footer__link:hover { 
+  background: var(--accent-50); 
+  color: var(--accent-600); 
 }
 
-nav a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background: var(--secondary-color);
-    bottom: 0;
-    right: 0;
-    transition: width 0.4s ease;
+/* Cards - Enhanced with paper-like feel */
+.c-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-paper);
+  overflow: hidden;
+  transition: all var(--speed) ease;
+  position: relative;
+}
+.c-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.c-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--secondary);
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+.c-card__title {
+  padding: 1.25rem 1.5rem .75rem;
+  font-weight: 800;
+  font-family: var(--font-serif);
+  color: var(--primary);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+.c-card__body {
+  padding: 1rem 1.5rem 1.5rem;
+}
+.c-card--accent {
+  border-color: color-mix(in oklab, var(--accent) 30%, var(--border));
+  box-shadow: var(--shadow-lg);
+}
+.c-card--accent::before {
+  background: var(--primary);
 }
 
-nav a:hover {
-    color: var(--secondary-color);
+/* Stack layout helper (forms) */
+.stack { 
+  display: grid; 
+  gap: 1rem; 
 }
 
-nav a:hover::after {
-    width: 100%;
+/* Buttons - Enhanced with literary theme */
+.btn, .btn:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .75rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--speed) ease;
+  box-shadow: 0 6px 16px rgba(102, 34, 73, 0.28);
+  font-family: var(--font-sans);
+  position: relative;
+  overflow: hidden;
 }
-
-/* --- کارت محتوا --- */
-.card {
-    background: #fff;
-    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), var(--paper-texture);
-    padding: 35px;
-    margin: 40px auto;
-    border-radius: 5px;
-    max-width: 800px;
-    box-shadow: 0 8px 25px var(--shadow);
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: fadeIn 1.2s ease;
-    border: 1px solid rgba(201, 169, 97, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    height: 100%;
-    background: var(--secondary-color);
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px var(--shadow);
-}
-
-.card h2 {
-    color: var(--primary-color);
-    margin-top: 0;
-    border-bottom: 2px solid rgba(201, 169, 97, 0.3);
-    padding-bottom: 15px;
-    font-size: 26px;
-    font-weight: 600;
-}
-
-.card p {
-    margin-bottom: 18px;
-    font-size: 18px;
-    text-align: justify;
-}
-
-/* --- دکمه‌ها --- */
-.btn {
-    background: linear-gradient(90deg, var(--primary-color), #5d4e75);
-    color: #fff;
-    padding: 15px 35px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 10px var(--shadow);
-    border: 1px solid var(--secondary-color);
-}
-
 .btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--secondary-color);
-    transition: right 0.4s ease;
-    z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
 }
-
-.btn:hover {
-    color: var(--primary-color);
-    box-shadow: 0 6px 15px var(--shadow);
-}
-
 .btn:hover::before {
-    right: 0;
+  transform: translateX(0);
+}
+.btn:hover { 
+  transform: translateY(-2px); 
+  background: var(--accent-600); 
+  border-color: var(--accent-600); 
+  box-shadow: 0 8px 20px rgba(102, 34, 73, 0.35);
+}
+.btn:active { 
+  transform: translateY(0); 
+}
+.btn:focus-visible { 
+  outline: var(--focus); 
+  outline-offset: 2px; 
+}
+.btn--outline {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: none;
+  border: 2px solid var(--accent);
+}
+.btn--outline:hover { 
+  background: var(--accent-50); 
+}
+.btn--sm { 
+  padding: .5rem .9rem; 
+  font-size: .92rem; 
+}
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
 }
 
-/* --- لیست‌ها --- */
-ul {
-    list-style: none;
-    padding: 0;
+/* Forms - Enhanced with literary theme */
+.form-group { 
+  display: grid; 
+  gap: .5rem; 
+}
+.form-label { 
+  font-weight: 700; 
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: .8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  transition: all var(--speed) ease;
+  font-family: var(--font-sans);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+textarea { 
+  min-height: 140px; 
+  resize: vertical; 
+}
+input::placeholder, textarea::placeholder { 
+  color: var(--text-muted); 
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 20%, transparent),
+              inset 0 1px 3px rgba(0,0,0,0.05);
 }
 
-ul li {
-    background: rgba(249, 245, 235, 0.7);
-    background-image: var(--paper-texture);
-    background-blend-mode: overlay;
-    padding: 16px 20px;
-    margin: 15px 0;
-    border-radius: 3px;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-right: 4px solid var(--secondary-color);
-    font-size: 18px;
+/* Django field errors */
+.form-error { 
+  padding: .6rem .9rem; 
+  background: var(--danger-50); 
+  border: 1px solid color-mix(in oklab, var(--danger) 30%, var(--danger-50)); 
+  border-radius: 10px;
+  font-family: var(--font-sans);
+}
+.u-text-danger { 
+  color: var(--danger) !important; 
 }
 
-ul li:hover {
-    transform: translateX(-8px);
-    background: rgba(249, 245, 235, 0.9);
-    box-shadow: 0 5px 15px var(--shadow);
+/* Alerts - Enhanced with literary theme */
+.alert {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .6rem .8rem;
+  align-items: start;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.alert::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+.alert__icon { 
+  font-size: 1.3rem; 
+  line-height: 1; 
+}
+.alert--info   { 
+  background: var(--info-50);   
+  border-color: color-mix(in oklab, var(--info) 28%, var(--info-50)); 
+}
+.alert--info::before {
+  background: var(--info);
+}
+.alert--error  { 
+  background: var(--danger-50); 
+  border-color: color-mix(in oklab, var(--danger) 28%, var(--danger-50)); 
+}
+.alert--error::before {
+  background: var(--danger);
+}
+.alert--warn,
+.alert--warning{ 
+  background: var(--warning-50); 
+  border-color: color-mix(in oklab, var(--warning) 28%, var(--warning-50)); 
+}
+.alert--warn::before,
+.alert--warning::before {
+  background: var(--warning);
+}
+.alert--success{ 
+  background: var(--success-50); 
+  border-color: color-mix(in oklab, var(--success) 28%, var(--success-50)); 
+}
+.alert--success::before {
+  background: var(--success);
 }
 
-/* --- بلاک‌کوت (اشعار) --- */
-blockquote {
-    margin: 25px 0;
-    padding: 25px 30px;
-    background: linear-gradient(120deg, rgba(249,245,235,0.8), rgba(244,241,232,0.8));
-    background-image: var(--paper-texture);
-    background-blend-mode: overlay;
-    border-right: 5px solid var(--accent-color);
-    font-style: italic;
-    border-radius: 3px;
-    line-height: 2.2;
-    color: var(--text-color);
-    box-shadow: 0 5px 15px var(--shadow);
-    position: relative;
-    font-size: 20px;
+/* Lists - Enhanced with literary theme */
+.list {
+  display: grid;
+  gap: 1rem;
+}
+.list__item {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  transition: all var(--speed) ease;
+  position: relative;
+}
+.list__item:hover {
+  background: var(--bg-soft);
+  transform: translateX(-2px);
+}
+.list--check .list__item {
+  position: relative;
+  padding-inline-start: 2.5rem;
+}
+.list--check .list__item::before {
+  content: "✓";
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: 1rem;
+  font-weight: 900;
+  color: var(--success);
+  font-size: 1.1rem;
 }
 
-blockquote::before {
-    content: """;
-    position: absolute;
-    top: -15px;
-    right: 15px;
-    font-size: 60px;
-    color: var(--accent-color);
-    opacity: 0.4;
-    font-family: serif;
+/* Quote / Fortune - Enhanced for Persian poetry */
+.quote {
+  padding: 1.5rem 1.75rem;
+  border-radius: 16px;
+  background: var(--accent-50);
+  border: 1px dashed color-mix(in oklab, var(--accent) 40%, var(--accent-50));
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-serif);
+  margin: 1.5rem 0;
+}
+.quote::before {
+  content: """;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 3rem;
+  color: var(--primary);
+  opacity: 0.2;
+  font-family: serif;
+}
+.quote p { 
+  margin: 0; 
+  font-weight: 700; 
+  font-size: 1.1rem;
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+}
+.quote .poet {
+  text-align: left;
+  margin-top: 0.75rem;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--primary);
 }
 
-blockquote::after {
-    content: """;
-    position: absolute;
-    bottom: -40px;
-    left: 15px;
-    font-size: 60px;
-    color: var(--accent-color);
-    opacity: 0.4;
-    font-family: serif;
+/* Poetry styles */
+.poetry {
+  font-family: var(--font-serif);
+  line-height: 2.2;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  position: relative;
+}
+.poetry::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23662249' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  border-radius: var(--radius);
+}
+.poetry .verse {
+  margin: 0.75rem 0;
+}
+.poetry .verse:first-child {
+  margin-top: 0;
+}
+.poetry .verse:last-child {
+  margin-bottom: 0;
 }
 
-/* --- فوتر --- */
-footer {
-    text-align: center;
-    padding: 25px;
-    background: linear-gradient(90deg, var(--primary-color), #5d4e75);
-    color: #f0e6d2;
-    margin-top: 60px;
-    font-size: 16px;
-    border-top: 3px solid var(--secondary-color);
-    background-image: var(--paper-texture);
-    background-blend-mode: overlay;
-    background-opacity: 0.1;
+/* Utilities */
+.u-text-muted { 
+  color: var(--text-muted) !important; 
+}
+.u-mb-0 { 
+  margin-bottom: 0 !important; 
+}
+.u-mt-1 { 
+  margin-top: .25rem !important; 
+}
+.u-mt-2 { 
+  margin-top: .5rem !important; 
+}
+.u-mt-3 { 
+  margin-top: .75rem !important; 
+}
+.u-mt-4 { 
+  margin-top: 1rem !important; 
+}
+.u-mt-5 { 
+  margin-top: 1.25rem !important; 
+}
+.u-mx-auto { 
+  margin-inline: auto !important; 
 }
 
-footer p {
-    margin: 0;
+/* Focus styles for interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: var(--focus);
+  outline-offset: 3px;
+  border-radius: 10px;
 }
 
-/* --- انیمیشن‌ها --- */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Tables (if any rendered by Django) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+th, td {
+  padding: .9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+}
+thead th {
+  background: var(--bg-soft);
+  font-weight: 800;
+  color: var(--primary);
+  font-family: var(--font-sans);
+}
+tbody tr:hover { 
+  background: color-mix(in oklab, var(--bg-soft) 70%, transparent); 
 }
 
-/* --- واکنش‌گرا --- */
-@media (max-width: 768px) {
-    .card {
-        margin: 25px 15px;
-        padding: 25px;
-    }
-    
-    header h1 {
-        font-size: 26px;
-    }
-    
-    nav a {
-        margin: 0 10px;
-        font-size: 16px;
-    }
-    
-    blockquote {
-        font-size: 18px;
-        padding: 20px 25px;
-    }
-    
-    .btn {
-        padding: 12px 25px;
-        font-size: 15px;
-    }
+/* Code blocks (if any) */
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Ubuntu Mono", monospace;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  direction: ltr;
+  text-align: left;
+}
+code { 
+  padding: .2rem .5rem; 
+  font-size: 0.9em;
+}
+pre { 
+  padding: 1rem 1.2rem; 
+  overflow: auto; 
+  max-height: 400px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .site-header__inner { 
+    padding: .8rem 1rem; 
+  }
+  .site-footer__inner { 
+    padding: 1rem .8rem; 
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .c-card__title { 
+    padding: 1rem 1.2rem .5rem; 
+  }
+  .c-card__body { 
+    padding: 0 1.2rem 1.2rem; 
+  }
+  .nav { 
+    gap: .4rem; 
+  }
+  .nav__link { 
+    padding: .45rem .8rem; 
+    font-size: 0.9rem;
+  }
+  .quote {
+    padding: 1.2rem 1.4rem;
+  }
+  .quote::before {
+    font-size: 2.5rem;
+    top: 5px;
+    right: 10px;
+  }
+  h1::after {
+    width: 60px;
+  }
+}
+
+/* Smooth transitions for themeable elements */
+body, .c-card, .list__item, .alert, .site-header, .site-footer, input, textarea, select, table, code, pre {
+  transition: background-color var(--speed) ease, color var(--speed) ease, border-color var(--speed) ease, box-shadow var(--speed) ease;
+}
+
+/* Decorative elements for literary theme */
+.divider {
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border), transparent);
+  margin: 2rem 0;
+}
+.divider-text {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+.divider-text::before,
+.divider-text::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider-text::before {
+  margin-left: 1rem;
+}
+.divider-text::after {
+  margin-right: 1rem;
+}
+.divider-text span {
+  padding: 0 1rem;
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+}
+
+/* Ornamental decorations */
+.ornament {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  color: var(--primary);
+  opacity: 0.6;
+}
+.ornament::before,
+.ornament::after {
+  content: "❦";
+  font-size: 1.5rem;
+}
+.ornament span {
+  padding: 0 1rem;
+  font-family: var(--font-serif);
+  font-style: italic;
 }

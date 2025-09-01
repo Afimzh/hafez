@@ -1,15 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}کاربران{% endblock %}
-
 {% block content %}
-<div class="card">
-    <h2>ثبت کاربر جدید</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn">ثبت</button>
-    </form>
+<div class="c-card">
+    <h2 class="c-card__title">ثبت کاربر جدید</h2>
+    <div class="c-card__body">
+        <form method="post" class="stack">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="form-error">
+                            {% for error in field.errors %}
+                                <p class="u-text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <div class="btn-group">
+                <button type="submit" class="btn">ثبت</button>
+                <a href="/" class="btn btn--outline">بازگشت</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

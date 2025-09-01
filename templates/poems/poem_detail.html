@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ poem.title }}{% endblock %}
+
+{% block content %}
+<div class="c-card c-card--accent">
+    <h2 class="c-card__title">{{ poem.title|linebreaks }}</h2>
+    <div class="c-card__body">
+        <p>{{ poem.poem_text|linebreaks }}</p>
+        <a href="{% url 'poems' %}" class="btn btn--sm btn--outline u-mt-3">بازگشت</a>
+    </div>
+</div>
+{% endblock %}

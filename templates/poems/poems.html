@@ -1,10 +1,72 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}اشعار{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h2>📖 اشعار</h2>
-    <p>در این بخش اشعار حافظ نمایش داده می‌شود.</p>
+<div class="c-card">
+    <h2 class="c-card__title">📖 اشعار</h2>
+    <div class="c-card__body">
+        <p>در این بخش اشعار حافظ نمایش داده می‌شود.</p>
+        
+        {% if poem %}
+        <div id="poem-card" class="c-card c-card--accent">
+            <h3 id="poem-title" class="c-card__title">{{ poem.title }}</h3>
+            <div class="c-card__body">
+                <p id="poem-text">{{ poem.poem_text|truncatewords:20 }}</p>
+                <div class="btn-group u-mt-3">
+                    <a id="poem-detail-link" href="{% url 'poem_detail' poem.id %}" class="btn btn--sm btn--outline">مشاهده کامل</a>
+                    <button id="next-poem" class="btn btn--sm">شعر بعدی</button>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert--info">
+            <span class="alert__icon">ℹ️</span>
+            <div>
+                <p>هیچ شعری برای نمایش وجود ندارد.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("next-poem");
+    if (!btn) return;
+
+    // ✅ تابع برای کوتاه کردن متن به تعداد مشخص کلمه
+    function truncateWords(str, numWords) {
+        if (!str) return "";
+        let words = str.split(/\s+/);
+        if (words.length > numWords) {
+            return words.slice(0, numWords).join(" ") + " ...";
+        }
+        return str;
+    }
+
+    btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        fetch("{% url 'next_poem_api' %}")  // API شعر بعدی
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById("poem-card").innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    // 📝 عنوان و متن شعر
+                    document.getElementById("poem-title").textContent = data.title;
+                    document.getElementById("poem-text").textContent = truncateWords(data.text, 20);
+
+                    // 🔗 آپدیت شدن لینک "مشاهده کامل"
+                    let detailLink = document.getElementById("poem-detail-link");
+                    detailLink.href = `/poems/${data.id}/`;  // مطمئن شو در urls.py الگوی /poems/<id>/ داری
+                }
+            })
+            .catch(error => {
+                console.error("خطا در دریافت شعر بعدی:", error);
+            });
+    });
+});
+</script>
 {% endblock %}

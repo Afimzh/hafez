@@ -1,26 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}پروژه حافظ{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>📜 پروژه حافظ</h1>
-        <nav>
-            <a href="/users/">کاربران</a>
-            <a href="/poems/">اشعار</a>
-            <a href="/fortune/">فال</a>
-            <a href="/favorites/">علاقه‌مندی‌ها</a>
-        </nav>
+    <a href="#main-content" class="skip-to-content">رفتن به محتوای اصلی</a>
+    
+    <header class="site-header">
+        <div class="site-header__inner">
+            <h1 class="site-header__title">📜 پروژه حافظ</h1>
+            <nav class="nav">
+                <a href="/users/" class="nav__link">کاربران</a>
+                <a href="/poems/" class="nav__link">اشعار</a>
+                <a href="/fortune/" class="nav__link">فال</a>
+                <a href="/favorites/" class="nav__link">علاقه‌مندی‌ها</a>
+            </nav>
+        </div>
     </header>
-    <main>
-        {% block content %}{% endblock %}
+    
+    <main id="main-content" class="main">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
     </main>
-    <footer>
-        <p>© 2025 - پروژه حافظ</p>
+    
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <nav class="site-footer__nav">
+                <a href="#" class="site-footer__link">درباره ما</a>
+                <a href="#" class="site-footer__link">تماس با ما</a>
+                <a href="#" class="site-footer__link">حریم خصوصی</a>
+            </nav>
+            <p>© 2025 - پروژه حافظ</p>
+        </div>
     </footer>
 </body>
 </html>

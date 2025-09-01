@@ -4,5 +4,4 @@ pycache/
 *.pyd
 venv/
 .env
-db.sqlite3
 *.log

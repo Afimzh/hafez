@@ -1,22 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}فال حافظ{% endblock %}
-
 {% block content %}
-<div class="card">
-    <h2>🔮 فال حافظ</h2>
-    {% if fortunes %}
-        <ul>
-        {% for f in fortunes %}
-            <li>
-                <p><strong>{{ f.fortune_user.user_name }}</strong>:</p>
-                <blockquote>{{ f.fortune_poem }}</blockquote>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>هیچ فالی ثبت نشده است.</p>
-    {% endif %}
+<div class="c-card">
+    <h2 class="c-card__title">🔮 فال حافظ</h2>
+    <div class="c-card__body">
+
+        <!-- دکمه شروع فال -->
+        <div class="u-mt-3">
+            <button id="new-fortune" class="btn">✨ لطفاً نیت کنید و دکمه را بزنید</button>
+        </div>
+
+        <!-- نتیجه فال اینجا ظاهر می‌شود -->
+        <div id="fortune-result" class="u-mt-4"></div>
+    </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const fortuneBtn = document.getElementById("new-fortune");
+    const fortuneResult = document.getElementById("fortune-result");
+
+    fortuneBtn.addEventListener("click", function () {
+        fortuneBtn.textContent = "⏳ در حال گرفتن فال...";
+        fortuneBtn.disabled = true;
+
+        fetch("{% url 'random_fortune' %}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.title) {
+                    fortuneResult.innerHTML = `
+                        <div class="quote">
+                            <p>${data.title}</p>
+                        </div>
+                    `;
+                } else if (data.error) {
+                    fortuneResult.innerHTML = `
+                        <div class="alert alert--error">
+                            <p>${data.error}</p>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                fortuneResult.innerHTML = `
+                    <div class="alert alert--error">
+                        <p>مشکلی در دریافت فال پیش آمد.</p>
+                    </div>
+                `;
+                console.error(error);
+            })
+            .finally(() => {
+                fortuneBtn.textContent = "✨ فال جدید بگیر";
+                fortuneBtn.disabled = false;
+            });
+    });
+});
+</script>
 {% endblock %}

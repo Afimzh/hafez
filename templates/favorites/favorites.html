@@ -1,11 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}علاقه‌مندی‌ها{% endblock %}
-
 {% block content %}
-<div class="card">
-    <h2>❤️ علاقه‌مندی‌ها</h2>
-    <p>اشعار مورد علاقه‌ی شما در این بخش خواهد بود.</p>
+<div class="c-card">
+    <h2 class="c-card__title">❤️ علاقه‌مندی‌ها</h2>
+    <div class="c-card__body">
+        <p>اشعار مورد علاقه‌ی شما در این بخش خواهد بود.</p>
+        
+        {% if favorites %}
+            <div class="list list--check">
+                {% for favorite in favorites %}
+                    <div class="list__item">
+                        <p>{{ favorite.poem.title }}</p>
+                        <p class="u-text-muted u-mb-0">{{ favorite.poem.poet }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert--info">
+                <span class="alert__icon">ℹ️</span>
+                <div>
+                    <p>هیچ شعری به علاقه‌مندی‌ها اضافه نشده است.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
