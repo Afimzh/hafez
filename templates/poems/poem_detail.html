@@ -5,10 +5,71 @@
 
 {% block content %}
 <div class="c-card c-card--accent">
-    <h2 class="c-card__title">{{ poem.title|linebreaks }}</h2>
-    <div class="c-card__body">
-        <p>{{ poem.poem_text|linebreaks }}</p>
-        <a href="{% url 'poems' %}" class="btn btn--sm btn--outline u-mt-3">بازگشت</a>
+  <h2 class="c-card__title">{{ poem.title }}</h2>
+  <div class="c-card__body">
+    <!-- بهتر: linebreaksbr داخل یک div تا مشکل تداخل p نداشته باشیم -->
+    <div class="poem-text">{{ poem.poem_text|linebreaks }}</div>
+
+    <div class="btn-group u-mt-3">
+      <a href="{% url 'poems' %}" class="btn btn--sm btn--outline">بازگشت</a>
+      {% if is_favorite %}
+        <a href="{% url 'remove_from_favorites' poem.id %}" class="btn btn--sm btn--danger">❌ حذف از علاقه‌مندی‌ها</a>
+      {% else %}
+        <a href="{% url 'add_to_favorites' poem.id %}" class="btn btn--sm btn--primary">➕ افزودن به علاقه‌مندی‌ها</a>
+      {% endif %}
     </div>
+  </div>
 </div>
+
+{% if favorite_poems %}
+<div class="c-card u-mt-4">
+  <h3 class="c-card__title">⭐ اشعار علاقه‌مندی شما</h3>
+  <div class="c-card__body">
+    {% for fav in favorite_poems %}
+      <div class="c-card u-mb-3">
+        <h4 class="c-card__title">{{ fav.title }}</h4>
+
+        <!-- خلاصه -->
+        <div id="summary-{{ fav.id }}">{{ fav.poem_text|truncatewords:24 }}</div>
+
+        <!-- متن کامل (مخفی) -->
+        <div id="full-{{ fav.id }}" class="hidden">{{ fav.poem_text|linebreaks }}</div>
+
+        <div class="btn-group u-mt-2">
+          <button class="btn btn--sm btn--outline toggle-btn" data-id="{{ fav.id }}">نمایش کامل</button>
+          <a href="{% url 'poem_detail' fav.id %}" class="btn btn--sm btn--primary">رفتن به صفحه شعر</a>
+          <a href="{% url 'remove_from_favorites' fav.id %}" class="btn btn--sm btn--danger">❌ حذف</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<style>
+.hidden { display: none; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".toggle-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const id = this.getAttribute("data-id");
+      const summary = document.getElementById("summary-" + id);
+      const full = document.getElementById("full-" + id);
+
+      const isHidden = full.classList.contains("hidden");
+      if (isHidden) {
+        full.classList.remove("hidden");
+        summary.classList.add("hidden");
+        this.textContent = "بستن";
+      } else {
+        full.classList.add("hidden");
+        summary.classList.remove("hidden");
+        this.textContent = "نمایش کامل";
+      }
+    });
+  });
+});
+</script>
 {% endblock %}
